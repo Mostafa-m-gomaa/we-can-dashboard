@@ -1,0 +1,119 @@
+.keys{
+    width: 95%;
+    margin: auto;
+    // background-color: white;
+    // height: 90vh;
+    color: white;
+    .confirm{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        background-color: rgba(0, 0, 0, 0.781);
+        text-align: center;
+        padding: 15px;
+        border-radius: 10px;
+        z-index: 120;
+        width: 50%;
+        // color: black;
+        .btns{
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+            margin: auto;
+            margin-top: 25px;
+            button{
+                width: 40%;
+                padding: 10px;
+                border-radius: 5px;
+                font-size: 17px;
+                color: white;
+            }
+            .yes{
+                background-color: red;
+            }
+            .no{
+                background-color: green;
+            }
+        }
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .add-key{
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.575);
+        padding: 10px;
+        text-align: center;
+        border-radius: 10px;
+        button{
+            background-color: var(--clr-pumpkin);
+            color: white;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 70%;
+            margin: auto;
+            label{
+                width: 80%;
+                display: flex;
+               justify-content: space-between;
+                input{
+                    width: 60%;
+                }
+            }
+            
+        }
+    }
+    .all-keys{
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.575);
+        padding: 10px;
+        text-align: center;
+        border-radius: 10px;
+        .in-all-keys{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            .key-card{
+                width: 30%;
+                background-color: white;
+                color: black;
+                padding: 10px 0;
+                border-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                
+                button{
+                    background-color: red;
+                    color: white;
+                    padding: 10px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    width: 100px;
+                    margin: auto;
+                }
+                a{
+                    background-color: var(--clr-pumpkin);
+                    padding: 5px;
+                    border-radius: 5px;
+                    width: 150px;
+                    margin: auto;
+                }
+                img{
+                    max-width: 100%;
+                    min-width: 100%;
+                    margin-top: 10px;
+                    
+                }
+            }
+        }
+    }
+}

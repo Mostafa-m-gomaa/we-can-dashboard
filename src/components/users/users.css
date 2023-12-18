@@ -1,0 +1,205 @@
+.users {
+  width: 95%;
+  max-width: 95%;
+  margin: auto;
+  color: white;
+}
+.users button {
+  background-color: var(--clr-pumpkin);
+  color: white;
+  cursor: pointer;
+}
+.users .confirm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.781);
+  text-align: center;
+  padding: 15px;
+  border-radius: 10px;
+  z-index: 1120;
+  width: 50%;
+}
+.users .confirm .btns {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  margin-top: 25px;
+}
+.users .confirm .btns button {
+  width: 40%;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 17px;
+  color: white;
+}
+.users .confirm .btns .yes {
+  background-color: red;
+}
+.users .confirm .btns .no {
+  background-color: green;
+}
+.users .container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 95%;
+}
+.users .add {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.575);
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+}
+.users .add button, .users .add .show-users {
+  background-color: var(--clr-pumpkin);
+  color: white;
+  cursor: pointer;
+}
+.users .add form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 70%;
+  margin: auto;
+}
+.users .add form label {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+.users .add form label input {
+  width: 60%;
+}
+.users .all-users {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.925);
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  overflow: scroll;
+}
+.users .all-users .close {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  font-size: 20px;
+  background-color: red;
+  padding: 1px 8px;
+  border-radius: 10px;
+  border: 1px solid white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.users .all-users .close:hover {
+  background-color: black;
+}
+.users .all-users .in-all-users {
+  width: 98%;
+  margin: auto;
+  padding: 4px;
+}
+.users .all-users .in-all-users .user-card {
+  background-color: white;
+  width: 48%;
+  color: black;
+  padding: 10px;
+  border-radius: 10px;
+}
+.users .all-users .in-all-users .user-card .allowed {
+  width: 100%;
+}
+.users .all-users .in-all-users .user-card .allowed .in-allowed {
+  width: 95%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.users .all-users .in-all-users .user-card .allowed .in-allowed .key {
+  border: 1px solid;
+  padding: 5px;
+  border-radius: 4px;
+}
+.users .all-users .in-all-users .user-card .in-user-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.users .all-users .in-all-users .user-card .in-user-card .delete {
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  width: 100px;
+  margin: auto;
+  border-radius: 5px;
+}
+.users .all-users .in-all-users .user-card .in-user-card .again, .users .all-users .in-all-users .user-card .in-user-card a {
+  background-color: rgb(51, 196, 70);
+  color: white;
+  cursor: pointer;
+  width: 200px;
+  margin: auto;
+  border-radius: 5px;
+  padding: 5px;
+}
+.users .users-table {
+  width: -moz-fit-content;
+  width: fit-content;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin: auto;
+}
+.users th, .users td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.users thead {
+  background-color: #f2f2f2;
+}
+.users th {
+  background-color: #4CAF50;
+  color: white;
+}
+.users tbody td {
+  vertical-align: middle;
+}
+.users .actions {
+  min-width: -moz-fit-content !important;
+  min-width: fit-content !important;
+  padding: 4px 6px;
+}
+.users .action-cont {
+  display: flex;
+  gap: 6px;
+}
+.users a, .users .delete, .users .again {
+  padding: 5px;
+  border: none;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+}
+.users a {
+  background-color: #3498db;
+}
+.users .delete {
+  background-color: #e74c3c;
+}
+.users .again {
+  background-color: #2ecc71;
+}/*# sourceMappingURL=users.css.map */

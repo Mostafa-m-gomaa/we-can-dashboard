@@ -1,0 +1,71 @@
+.org {
+  width: 95%;
+  margin: auto;
+}
+.org .confirm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.781);
+  text-align: center;
+  padding: 15px;
+  border-radius: 10px;
+  z-index: 120;
+  width: 50%;
+}
+.org .confirm .btns {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  margin-top: 25px;
+}
+.org .confirm .btns button {
+  width: 40%;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 17px;
+  color: white;
+}
+.org .confirm .btns .yes {
+  background-color: red;
+}
+.org .confirm .btns .no {
+  background-color: green;
+}
+.org .coords {
+  color: white;
+  text-align: center;
+  padding: 15px;
+  width: 80%;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.548);
+  border: 2px solid var(--clr-pumpkin);
+  border-radius: 5px;
+}
+.org .coords .in-coords {
+  width: 90%;
+  margin: 15px auto;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.org .coords .in-coords .coord {
+  width: 25%;
+  border: 2px solid white;
+  padding: 5px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.org .coords .in-coords .coord .delete {
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  width: 100px;
+  margin: auto;
+  border-radius: 5px;
+}/*# sourceMappingURL=org.css.map */

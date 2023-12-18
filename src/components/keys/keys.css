@@ -1,0 +1,113 @@
+.keys {
+  width: 95%;
+  margin: auto;
+  color: white;
+}
+.keys .confirm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.781);
+  text-align: center;
+  padding: 15px;
+  border-radius: 10px;
+  z-index: 120;
+  width: 50%;
+}
+.keys .confirm .btns {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  margin-top: 25px;
+}
+.keys .confirm .btns button {
+  width: 40%;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 17px;
+  color: white;
+}
+.keys .confirm .btns .yes {
+  background-color: red;
+}
+.keys .confirm .btns .no {
+  background-color: green;
+}
+.keys .container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.keys .add-key {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.575);
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+}
+.keys .add-key button {
+  background-color: var(--clr-pumpkin);
+  color: white;
+}
+.keys .add-key form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 70%;
+  margin: auto;
+}
+.keys .add-key form label {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+.keys .add-key form label input {
+  width: 60%;
+}
+.keys .all-keys {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.575);
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+}
+.keys .all-keys .in-all-keys {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.keys .all-keys .in-all-keys .key-card {
+  width: 30%;
+  background-color: white;
+  color: black;
+  padding: 10px 0;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.keys .all-keys .in-all-keys .key-card button {
+  background-color: red;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100px;
+  margin: auto;
+}
+.keys .all-keys .in-all-keys .key-card a {
+  background-color: var(--clr-pumpkin);
+  padding: 5px;
+  border-radius: 5px;
+  width: 150px;
+  margin: auto;
+}
+.keys .all-keys .in-all-keys .key-card img {
+  max-width: 100%;
+  min-width: 100%;
+  margin-top: 10px;
+}/*# sourceMappingURL=keys.css.map */

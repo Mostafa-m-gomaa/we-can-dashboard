@@ -104,7 +104,12 @@
             background-color: black;
         }
        }
-   
+       .export-button{
+        padding: 10px 20px;
+        margin: 15px auto;
+        text-transform: capitalize;
+        border-radius: 8px;
+    }
         .in-all-users{
             
             // display:flex ;
@@ -118,6 +123,7 @@
             // padding: 20px;
          
             padding: 4px;
+      
             .user-card{
                 background-color: white;
                 width: 48%;

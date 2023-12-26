@@ -5,6 +5,10 @@ import { AppContext } from '../../App';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
+import ReactToExcel from 'react-html-table-to-excel';
+import { saveAs } from 'file-saver';
+
+
 
 
 
@@ -24,7 +28,6 @@ const Users = () => {
     const [keysArr,setKeysArr]=useState([])
     const [showUsers,setShowUsers]=useState(false)
     const [phone,setPhone]=useState("")
-
 
     const handleAdd = async (event) => {
         event.preventDefault();
@@ -221,10 +224,11 @@ console.log(keysArr)
 {showUsers ?<div className="all-users">
   <div onClick={()=>setShowUsers(false)} className="close">X</div>
     <h1>كل الاعضاء</h1>
+    <ReactToExcel table="table" filename="userSheet" sheet="sheet1" buttonText="export" className="export-button" />
     <div className="in-all-users">
       
 
-<table className="users-table">
+<table className="users-table" id='table'>
   <thead>
     <tr>
       <th>Name</th>
@@ -275,6 +279,7 @@ console.log(keysArr)
     ))}
   </tbody>
 </table>
+
     </div>
 </div> :null}
 

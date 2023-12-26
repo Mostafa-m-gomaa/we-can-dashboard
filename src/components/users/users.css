@@ -101,6 +101,12 @@
 .users .all-users .close:hover {
   background-color: black;
 }
+.users .all-users .export-button {
+  padding: 10px 20px;
+  margin: 15px auto;
+  text-transform: capitalize;
+  border-radius: 8px;
+}
 .users .all-users .in-all-users {
   width: 98%;
   margin: auto;

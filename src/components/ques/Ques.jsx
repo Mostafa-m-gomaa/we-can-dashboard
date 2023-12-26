@@ -31,6 +31,15 @@ const Question = () => {
 
     const handleAdd = async (event) => {
       const arrayOfWords = answerStr.split(',');
+      const obj ={
+        text : text ,
+        section : keyId ,
+      }
+      if(answerStr){
+        obj.options=answerStr.split(',')
+        obj.correctAnswer=correct
+      }
+
         event.preventDefault();
         setLoader(true)
         try {
@@ -40,12 +49,7 @@ const Question = () => {
               'Content-Type': 'application/json' ,
               "Authorization" :`Bearer ${sessionStorage.getItem("token")}`
             },
-            body: JSON.stringify({
-             text : text ,
-             section : keyId ,
-             options : arrayOfWords ,
-             correctAnswer : correct
-            })
+            body: JSON.stringify(obj)
           })
           .then(res=>res.json())
           console.log(response)

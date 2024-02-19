@@ -17,6 +17,7 @@ import EditUsers from './components/editUser/EditUser';
 import Raters from './components/raters/Raters';
 import CoordStudents from './components/coordStudent/CoordStudent';
 import About from './components/about/About';
+import AddUser from './components/users/AddUser';
 
 export const AppContext =createContext()
 
@@ -85,6 +86,7 @@ function App() {
       <Route path="/rater/:id" element={<Raters/>} />
       <Route path="/my-student" element={<CoordStudents/>} />
       <Route path="/من نحن" element={<About/>} />
+      <Route path="/اضافة عضو" element={<AddUser/>} />
       
  
     </Routes>

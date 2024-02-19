@@ -45,19 +45,9 @@ setHeadTitle(title)
       </div>
 
       <nav className="navigation">
-        {coordLogin ?   <Link to="/" onClick={logOut}  className={`nav-link ${activeLinkIdx === 0 ? 'active' : ''}`}>
-                     <BsFillArrowRightSquareFill />
-                      <span className="nav-link-text">تسجيل الخروج</span>
-                  </Link> : null}
+      
      {login ?     <ul className="nav-list">
-     {login ?       <Link to="/" onClick={logOut}  className={`nav-link ${activeLinkIdx === 0 ? 'active' : ''}`}>
-                     <BsFillArrowRightSquareFill />
-                      <span className="nav-link-text">تسجيل الخروج</span>
-                  </Link>: <Link to="/" onClick={()=>clickLink(0 , "تسجيل الدخول")}  className={`nav-link ${activeLinkIdx === 0 ? 'active' : ''}`}>
-                     <BsFillArrowRightSquareFill />
-                      <span className="nav-link-text">تسجيل الدخول</span>
-                  </Link> }
-            {
+     {
               navigationLinks.map((navigationLink) => (
                 <li className="nav-item"  key = { navigationLink.id }>
                   <Link to={`${navigationLink.title }`} onClick={()=>clickLink(navigationLink.id , navigationLink.title)}  className={`nav-link ${navigationLink.id === activeLinkIdx ? 'active' : ''}`}>
@@ -67,7 +57,19 @@ setHeadTitle(title)
                 </li>
               ))
             }
+     {login ?       <Link to="/" onClick={logOut}  className={`nav-link ${activeLinkIdx === 0 ? 'active' : ''}`}>
+                     <BsFillArrowRightSquareFill />
+                      <span className="nav-link-text">تسجيل الخروج</span>
+                  </Link>: <Link to="/" onClick={()=>clickLink(0 , "تسجيل الدخول")}  className={`nav-link ${activeLinkIdx === 0 ? 'active' : ''}`}>
+                     <BsFillArrowRightSquareFill />
+                      <span className="nav-link-text">تسجيل الدخول</span>
+                  </Link> }
+       
           </ul> :null}
+          {coordLogin ?   <Link to="/" onClick={logOut}  className={`nav-link ${activeLinkIdx === 0 ? 'active' : ''}`}>
+                     <BsFillArrowRightSquareFill />
+                      <span className="nav-link-text">تسجيل الخروج</span>
+                  </Link> : null}
       </nav>
     </div>
   

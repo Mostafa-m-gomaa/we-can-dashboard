@@ -186,9 +186,12 @@
   min-width: fit-content !important;
   padding: 4px 6px;
 }
-.users .action-cont {
+.users .actions .action-cont {
   display: flex;
   gap: 6px;
+  flex-wrap: wrap;
+  max-width: 100%;
+  justify-content: center;
 }
 .users a, .users .delete, .users .again {
   padding: 5px;
@@ -208,4 +211,355 @@
 }
 .users .again {
   background-color: #2ecc71;
+}
+
+.recharts-surface {
+  width: 70% !important;
+}
+@media (max-width: 767px) {
+  .recharts-surface {
+    width: 90% !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .recharts-legend-item-text {
+    font-size: 10px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  tspan {
+    font-size: 10px !important;
+  }
+}
+
+.graph .grapgh-title {
+  margin-top: 30px;
+  font-size: 15px;
+  background-color: var(--other-color);
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  margin: auto;
+  margin-top: 60px;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+@media (max-width: 767px) {
+  .graph .grapgh-title {
+    font-size: 8px;
+  }
+}
+
+#element1, #element2 {
+  width: 100%;
+  margin-top: 80px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+}
+@media (max-width: 767px) {
+  #element1, #element2 {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    padding: 5px 0;
+  }
+}
+
+.full-report {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 100%;
+  color: black;
+  overflow: scroll;
+}
+.full-report .over {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  background-color: rgba(0, 0, 0, 0.664);
+}
+.full-report button {
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  padding: 5px 15px;
+  border-radius: 5px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.full-report button:hover {
+  background-color: black;
+}
+.full-report .in-full {
+  width: 85%;
+  padding: 15px;
+  background-color: white;
+  margin: auto;
+  border: 3px solid var(--other-color);
+  border-radius: 10px;
+  margin-top: 130px;
+  position: relative;
+  z-index: 2200;
+}
+@media (max-width: 767px) {
+  .full-report .in-full {
+    width: 93%;
+  }
+}
+.full-report table, .full-report th, .full-report td {
+  border: 1px solid black;
+}
+.full-report th {
+  color: var(--my-color);
+  padding: 4px;
+}
+.full-report .table {
+  width: 80%;
+  margin: 15px auto;
+  padding: 0 0 15px 0;
+  text-align: center;
+  border: 2px solid var(--other-color);
+  border-radius: 10px;
+}
+@media (max-width: 767px) {
+  .full-report .table {
+    width: 95%;
+    padding: 5px;
+    overflow-x: scroll;
+  }
+}
+.full-report .table table {
+  margin: auto;
+}
+.full-report .table .small {
+  width: 50%;
+}
+
+.report {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.534);
+  z-index: 2000;
+  height: 100vh;
+  width: 100%;
+  top: 0;
+  left: 0;
+  text-align: center;
+  overflow: scroll;
+  padding-bottom: 20px;
+}
+.report button {
+  background-color: var(--my-color);
+  padding: 10px 15px;
+  border: 2px solid white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.report h2 {
+  color: white;
+}
+.report .in-report {
+  background-color: white;
+  width: 70%;
+  margin: 0 auto;
+  padding: 15px 10px;
+  border-radius: 10px;
+  border: 4px solid var(--other-color);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+@media (max-width: 767px) {
+  .report .in-report {
+    width: 90%;
+    overflow-x: scroll;
+  }
+}
+.report .in-report img {
+  width: 150px;
+}
+@media (max-width: 767px) {
+  .report .in-report img {
+    width: 100px;
+  }
+}
+.report .in-report .user-data {
+  display: flex;
+  width: 90%;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.report .in-report .user-data div {
+  border: 1px solid;
+  padding: 5px 10px;
+  border-radius: 10px;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+@media (max-width: 767px) {
+  .report .in-report .user-data div {
+    font-size: 12px;
+  }
+}
+.report .in-report table, .report .in-report th, .report .in-report td {
+  border: 2px solid black;
+}
+.report .in-report th {
+  color: var(--my-color);
+}
+
+.results {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.534);
+  z-index: 2000;
+  height: 100vh;
+  width: 100%;
+  top: 0;
+  left: 0;
+  text-align: center;
+  overflow: scroll;
+  padding-bottom: 20px;
+}
+.results button {
+  background-color: var(--my-color);
+  padding: 10px 15px;
+  border: 2px solid white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.results h2 {
+  color: white;
+}
+.results .in-results {
+  background-color: white;
+  width: 70%;
+  margin: 0 auto;
+  border-radius: 10px;
+  border: 4px solid var(--other-color);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px 10px;
+}
+@media (max-width: 767px) {
+  .results .in-results {
+    width: 90%;
+    overflow-x: scroll;
+  }
+}
+.results .in-results table, .results .in-results th, .results .in-results td {
+  border: 2px solid;
+}
+.results .in-results img {
+  width: 150px;
+}
+@media (max-width: 767px) {
+  .results .in-results img {
+    width: 90px;
+  }
+}
+.results .in-results .user-data {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+.results .in-results .user-data div {
+  border: 1px solid;
+  padding: 5px 10px;
+  border-radius: 10px;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.container .data {
+  width: 100%;
+  background-color: var(--my-color);
+  padding: 15px 0;
+  border-radius: 10px;
+  color: white;
+}
+.container .quiz-data {
+  background-color: var(--other-color);
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 15px 0;
+  border-radius: 10px;
+  width: 100%;
+}
+.container .quiz-data div {
+  background-color: white;
+  padding: 15x;
+  width: 15%;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.container .quiz-data div:hover {
+  background-color: var(--other-color);
+  color: rgb(255, 255, 255);
+}
+.container .keys {
+  background-color: var(--my-color);
+  padding: 15px 0;
+  border-radius: 10px;
+  width: 100%;
+  color: white;
+}
+.container .keys .in-keys {
+  display: flex;
+  width: 80%;
+  margin: auto;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.container .keys .in-keys .key-card {
+  border: 2px solid white;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: 0.2s;
+  margin-bottom: 15px;
+}
+.container .keys .in-keys .key-card:hover {
+  background-color: var(--my-color);
+  color: white;
+}
+
+.right {
+  background-color: green;
+  color: white;
+}
+
+.wrong {
+  background-color: red;
+  color: white;
 }/*# sourceMappingURL=users.css.map */

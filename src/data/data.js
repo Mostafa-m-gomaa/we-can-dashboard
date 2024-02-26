@@ -7,7 +7,8 @@ export const navigationLinks = [
     { id: 3, title: 'الاسئلة' },
     { id: 4, title: 'المنظمات' },
     { id: 5, title: 'من نحن' },
-    { id: 6, title: 'اضافة عضو' }
+    { id: 6, title: 'اضافة عضو' },
+    { id: 7, title: 'اتصل بنا' }
     // { id: 4, title: 'النماذج' },
     // { id: 5, title: 'الكورسات'},
     // { id: 6, title: 'الدروس' },

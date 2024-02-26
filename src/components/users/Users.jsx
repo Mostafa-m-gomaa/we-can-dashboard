@@ -266,6 +266,29 @@ console.log(keysArr)
         })
      
       }
+      const skipRater =(id)=>{
+        setLoader(true)
+        setShowConfirm(false)
+        fetch(`${route}/users/availUserToSkipRaters/${id}`,{
+          method :"PUT" ,
+          headers :{
+            "Authorization" :`Bearer ${sessionStorage.getItem("token")}`
+          }
+        })
+        .then(res => res.json())
+        .then(data => {
+          setLoader(false)
+          console.log(data)
+          if(data.status === "success"){
+            toast.success("done")
+            setRefresh(!refresh)
+          }
+          else if(data.status === "faild"){
+            toast.error(data.msg)
+          }
+        })
+     
+      }
 
       const getFullReport =(id)=>{
         sessionStorage.setItem("userId",id)
@@ -560,6 +583,10 @@ console.log(keysArr)
                التقرير الشامل
 
                 </button>
+                {user.skipRaters ? null:  <button onClick={()=>skipRater(user._id)} className="again" >
+تخطي المقيمين
+                </button>}
+              
                 <button onClick={()=>questionsReport(user._id)}>تقرير الاسئلة</button>
 
 

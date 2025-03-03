@@ -21,7 +21,7 @@ const Question = () => {
     const [editedCorrect,setEditedCorrect]=useState("")
     const [editedKeyId,setEditedKeyId]=useState("")
     const [showEdit,setShowEdit]=useState(false)
-
+  const [activeKey,setActiveKey]=useState("")
     const clickEdit =(id)=>{
       setShowEdit(true)
       setQuesId(id)
@@ -138,6 +138,20 @@ const Question = () => {
         })
      
       }
+      const clickKey =(id , activeKey)=>{
+        setActiveKey(activeKey)
+        fetch(`${route}/questions?section=${id}`,{
+          headers:{
+              "Authorization" :`Bearer ${sessionStorage.getItem("token")}`
+          }
+      }).then(res=>res.json())
+      .then(data=>{
+        console.log(data)
+        if(data.data){
+          setQues(data.data)
+        }
+      })
+      }
 
     useEffect(()=>{
         fetch(`${route}/keys`,{
@@ -168,6 +182,7 @@ const Question = () => {
           }
         })
       },[refresh])
+  
   return (
 <div className="ques">
 {showConfirm ?   <div className="confirm">
@@ -248,8 +263,25 @@ const Question = () => {
         </div>
         <div className="all-ques">
             <h1>الاسئلة</h1>
+            <div className="keys-filter">
+              <div className='key' onClick={()=>{setRefresh(!refresh) , setActiveKey("")}}>All</div>
+              {keys.map((key)=>{
+                return(
+                  <div className={`key ${key.name === activeKey ? "active-key":""}`} onClick={()=>clickKey(key._id , key.name)} key={key._id}>
+                    {key.name}
+                  </div>
+                )
+
+              })
+              }
+            </div>
             <div className="in-all-ques">
             {ques.map((ques)=>{
+              if(ques.length === 0){
+                return(
+                  <div>لا يوجد اسئلة</div>)
+              }else{
+
                 return(
                     <div className="ques-card" key={ques._id}>
                         <div className="text">{ques.text}</div>
@@ -273,6 +305,7 @@ const Question = () => {
                         <button onClick={()=>deleteButton(ques._id)}>حذف</button>
                     </div>
                 )
+              }
             })}
             </div>
         </div>

@@ -84,6 +84,35 @@
   text-align: center;
   border-radius: 10px;
 }
+.ques .all-ques .keys-filter {
+  background-color: white;
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 8px;
+  display: flex;
+  gap: 4px;
+  max-width: 100%;
+  overflow-x: scroll;
+}
+.ques .all-ques .keys-filter .key {
+  color: black;
+  border: 2px solid var(--clr-pumpkin);
+  border-radius: 4px;
+  padding: 1px 4px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+}
+.ques .all-ques .keys-filter .key:hover {
+  background-color: var(--clr-pumpkin);
+  color: white;
+}
+.ques .all-ques .keys-filter .active-key {
+  background-color: var(--clr-pumpkin);
+  color: white;
+}
 .ques .all-ques .in-all-ques {
   width: 100%;
   display: flex;

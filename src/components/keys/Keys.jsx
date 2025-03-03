@@ -113,6 +113,7 @@ const Keys = () => {
                 return(
                     <div className="key-card" key={index}>
                         {key.name}
+                        <div>{key._id}</div>
                         <button onClick={()=>deleteButton(key._id)}>حذف</button>
                     </div>
                 )

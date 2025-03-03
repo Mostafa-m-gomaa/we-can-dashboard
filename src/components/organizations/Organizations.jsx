@@ -203,6 +203,7 @@ const Organizations = () => {
                  <div className="in-user-card">
                     <img src={user.logo} alt="" />
                     <div className="name">{user.name}</div>
+                    <div className="name">{user._id}</div>
                     <Link to={`/org/${user._id}`}>بيانات المنظمين</Link>
                     <button className='cord'  onClick={() => addCoord(user._id)}>اضافة منظم</button>
                     <button className='delete' onClick={() => deleteButton(user._id)}>حذف</button>

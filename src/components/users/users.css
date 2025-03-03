@@ -86,6 +86,44 @@
   height: 100vh;
   overflow: scroll;
 }
+.users .all-users .pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+  font-size: 18px;
+}
+.users .all-users .pagination input {
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+}
+.users .all-users .filter {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+.users .all-users .filter .search-bar {
+  width: 30%;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid white;
+  display: flex;
+  gap: 10px;
+}
+.users .all-users .filter .search-bar input {
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid white;
+}
+.users .all-users .filter input {
+  width: 20%;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid white;
+}
 .users .all-users .close {
   position: absolute;
   top: 25px;
@@ -562,4 +600,20 @@
 .wrong {
   background-color: red;
   color: white;
+}
+
+.check-box input {
+  width: 20px;
+}
+
+.selected-btns {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 0;
+}
+.selected-btns button {
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: #2ecc71;
 }/*# sourceMappingURL=users.css.map */

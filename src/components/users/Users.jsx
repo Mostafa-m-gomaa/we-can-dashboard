@@ -14,8 +14,11 @@ import screen from '../../assets/Screenshot 2023-10-03 052406.png'
 import html2canvas from 'html2canvas';
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
+import * as XLSX from "xlsx";
+// import { saveAs } from "file-saver";
 
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import Loader from '../Loader/Loader';
 
 const Example = () => {
   const {route}=useContext(AppContext)
@@ -31,7 +34,7 @@ const Example = () => {
     })
     .then(res=>res.json())
     .then(data=>{
-console.log(data)
+
       if (data) {
         if(!JSON.parse(sessionStorage.getItem("full"))){
 
@@ -92,7 +95,7 @@ const ExampleRater = () => {
     })
     .then(res=>res.json())
     .then(data=>{
-console.log(data)
+
       if (data) {
         if(!JSON.parse(sessionStorage.getItem("fulla"))){
 
@@ -165,9 +168,72 @@ const Users = () => {
     const [quesReport,setQuesReport]=useState(false)
     const [userQuestions,setUserQuestions]=useState([])
     const [user,setUser]=useState({})
+    const [pagination,setPagination]=useState(0)
+    const [paginationPage,setPaginationPage]=useState(1)
     const myStyle = {
     display:"none"
       // Add any other styles as needed
+    };
+
+const [filters, setFilters] = useState({
+  page : paginationPage ,
+  organization : "" ,
+  code : "" ,
+  name : "" ,
+  email : "" ,
+  phone : "" ,
+
+})
+
+
+    const handleFilterChange = (key, value) => {
+      setRefresh(!refresh)
+      setFilters((prev) => ({
+        ...prev,
+        [key]: value || undefined, // Ensure empty values are removed
+      }));
+   
+    };
+    const [searchValue,setSearchValue]=useState("code")
+
+    const [file, setFile] = useState(null);
+
+    const handleFileUpload = (e) => {
+      const uploadedFile = e.target.files[0];
+      if (uploadedFile && uploadedFile.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+        setFile(uploadedFile); // Store the file
+      } else {
+        alert("Please upload a valid .xlsx file");
+      }
+    };
+  
+    const handleSubmit = async () => {
+      if (!file) {
+        alert("No file uploaded!");
+        return;
+      }
+      setLoader(true)
+  
+      const formData = new FormData();
+      formData.append("file", file); // Attach the file to the FormData
+  
+      try {
+        const response = await fetch(`${route}/users/storeManyUsers`, {
+          method: "POST",
+          body: formData, // Send the file in the request body
+        });
+        const result = await response.json();
+        setLoader(false)
+        toast.success(result.message)
+        for(let i = 0 ; i<result.existingUsers.length ; i++){
+          toast.warning(`${result.existingUsers[i].email} موجود بالفعل`)
+        }
+       
+        console.log(result);
+      
+      } catch (error) {
+        console.error("Error uploading file:", error);
+      }
     };
 
     const questionsReport =(id)=>{
@@ -179,7 +245,7 @@ const Users = () => {
       .then(res=>res.json())
       .then(data=>{
         setLoader(false)
-        console.log(data)
+      console.log(data)
         if(data.status === "fail"){
           toast.error(data.message)
         }
@@ -214,7 +280,7 @@ const Users = () => {
             })
           })
           .then(res=>res.json())
-          console.log(response)
+          
           setLoader(false)
           if (response.data) {
           toast.success("تمت الأضافة")
@@ -237,7 +303,7 @@ const Users = () => {
           setKeysArr([...keysArr, id]);
         }
     
-console.log(keysArr)
+
       }
       const deleteButton =(id)=>{
         setShowConfirm(true)
@@ -255,7 +321,7 @@ console.log(keysArr)
         })
         .then(res => {
             setLoader(false)
-            console.log(res)
+       
             if(res.ok){
       toast.success("تم الحذف بنجاح")
       setRefresh(!refresh)
@@ -278,7 +344,7 @@ console.log(keysArr)
         .then(res => res.json())
         .then(data => {
           setLoader(false)
-          console.log(data)
+         
           if(data.status === "success"){
             toast.success("done")
             setRefresh(!refresh)
@@ -302,7 +368,7 @@ console.log(keysArr)
         .then(res=>res.json())
         .then(data=>{
      setLoader(false)
-          console.log(data)
+         
           if(data.errors){
             toast.error(data.errors[0].msg)
           }
@@ -331,7 +397,35 @@ console.log(keysArr)
           }
         }).then(res=>res.json())
         .then(data => {
+      
+            setLoader(false)
             console.log(data)
+            if(data.status ==="success"){
+                toast.success(data.msg)
+                setRefresh(!refresh)
+            }
+            if(data.status === "faild"){
+                toast.error(data.msg)
+                
+            }
+
+        })
+      }
+      const selectManyUsers =(change)=>{
+        setLoader(true)
+        fetch(`${route}/users/updateManyUsers`,{
+          method :"PUT" ,
+          headers :{
+            "Authorization" :`Bearer ${sessionStorage.getItem("token")}` ,
+            "Content-Type": "application/json"
+          } ,
+          body : JSON.stringify({
+            ids : selectedIds,
+            change :change
+          })
+        }).then(res=>res.json())
+        .then(data => {
+      
             setLoader(false)
             if(data.status ==="success"){
                 toast.success(data.msg)
@@ -424,21 +518,67 @@ console.log(keysArr)
         // doc.text(keyName, 120, 50);
         
       };
+const filterOrg =(id)=>{
+  
+  fetch(`${route}/users?organization=${id}`,{
+    headers:{
+        "Authorization" :`Bearer ${sessionStorage.getItem("token")}`
+    }
+}) 
+.then(res=>res.json())
+.then(data=>{
+  if(data.data){
+    setUsers(data.data)
+  }
+})
+}
+const search =(code)=>{
+  if(code === ""){
+    setRefresh(!refresh)
+  }
+  fetch(`${route}/users?${searchValue}=${code}`,{
+    headers:{
+        "Authorization" :`Bearer ${sessionStorage.getItem("token")}`
+    }
+}) 
+.then(res=>res.json())
+.then(data=>{
+  console.log(data)
+  if(data.data){
+    setUsers(data.data)
+  }
 
+})
+}
+const [usersLoader,setUsersLoader]=useState(false)
 
       useEffect(()=>{
-        fetch(`${route}/users`,{
+        setUsersLoader(true)
+        const filteredParams = Object.fromEntries(
+          Object.entries(filters).filter(([_, value]) => value) // Remove empty values
+        );
+        const queryString = new URLSearchParams(filteredParams).toString();
+     
+
+        fetch(`${route}/users?limit=200 && ${queryString}`,{
             headers:{
                 "Authorization" :`Bearer ${sessionStorage.getItem("token")}`
             }
-        })
+        }) 
         .then(res=>res.json())
         .then(data=>{
+     
+          setUsersLoader(false)
           if(data.data){
+            console.log(data)
             setUsers(data.data)
-            console.log(data.data)
+            setPagination(data.paginationResult.numberOfPages)
+           
           }
         })
+
+
+
       },[refresh])
 
       useEffect(()=>{
@@ -449,7 +589,7 @@ console.log(keysArr)
         })
         .then(res=>res.json())
         .then(data=>{
-            console.log(data.data)
+     
           if(data.data){
             setOrganizations(data.data)
           }
@@ -465,10 +605,48 @@ console.log(keysArr)
         .then(data=>{
           if(data.data){
             setKeys(data.data)
-            console.log(data.data)
+ 
           }
         })
       },[])
+
+      const [selectedIds, setSelectedIds] = useState([]);
+
+      const handleCheckboxChange = (id, isChecked) => {
+        setSelectedIds((prev) =>
+          isChecked
+            ? [...prev, id] // Add the ID if checked
+            : prev.filter((userId) => userId !== id) // Remove the ID if unchecked
+        );
+
+ 
+      };
+
+      const exportToExcel =()=>{
+        setLoader(true)
+        const worksheetData = users.map((user)=>({
+          "Name" : user.name ,
+          "Email" : user.email ,
+          "Code" : user.code ,
+          "Phone" : user.phone ,
+          "First Quiz" : user.quizStatus ,
+          "Sec Quiz" : user.retakeQuizAt ? "finished" : "no" ,
+          "Organization" : user.organization ? user.organization.name : "لا يوجد" ,
+          "Allowed Keys" : user.allowed_keys.length === 0 ? "لا يوجد مفاتيح" : user.allowed_keys.map((key)=>(key.name)).join(", ")
+        }))
+
+        const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Orders");
+      
+        const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
+        const data = new Blob([excelBuffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8" });
+      
+        saveAs(data, "usersData.xlsx");
+        setLoader(false)
+      }
+
+      
   return (
 <div className="users">
 {showConfirm ?   <div className="confirm">
@@ -479,59 +657,54 @@ console.log(keysArr)
     </div>
   </div> :null}
     <div className="container">
-{/* <div className="add">
-    <h1>اضف عضو جديد</h1>
-    <form action="" onSubmit={handleAdd}>
-            <label htmlFor="">
-              الاسم
-              <input value={name} onChange={(e)=>setName(e.target.value)} type='text' />
-            </label>
-            <label htmlFor="">
-              الايميل
-              <input value={email}  type='text' onChange={(e)=>setEmail(e.target.value)} />
-            </label>
-            <label htmlFor="">
-             رقم الهاتف
-              <input  value={phone} onChange={(e)=>setPhone(e.target.value)} type='password' />
-            </label>
-         
-      <label htmlFor="">
-        اختر منظمة
-        <select name="" id="" onChange={(e)=>setOrgId(e.target.value)}>
-          <option value="">اختر منظمة</option>
-          {organizations.map((org,index)=>{
-            return(
-              <option key={index} value={org._id}>{org.name}</option>
-            )
-          })}
-        </select>
-      </label>
-    <div className="keys">
-      اختر المفاتيح
-      <div className="in-keys">
 
-      {keys.map((key,index)=>{
-        return(
-          <label key={index} htmlFor="">
-            {key.name}
-            <input type="checkbox" name="" id="" onChange={()=>handleKeys(key._id)} />
-          </label>
-        )
-      })}
-      </div>
-    </div>
-            <button type='submit'>أضافة</button>
-            <div onClick={()=>setShowUsers(true)} className='show-users'>اظهار جدول المستخدمين</div>
-          </form>
-</div> */}
-{showUsers ?<div className="all-users">
+{showUsers ?
+<div className="all-users">
   <div onClick={()=>setShowUsers(false)} className="close">X</div>
     <h1>كل الاعضاء</h1>
-    <ReactToExcel table="table" filename="userSheet" sheet="sheet1" buttonText="export" className="export-button" />
+    {/* <ReactToExcel table="table" filename="userSheet" sheet="sheet1" buttonText="export" className="export-button" /> */}
+    <button className='button' style={{ padding: "5px 20px" , margin:"10px 0" }} onClick={exportToExcel}>export excel</button>
+    <div className="filter">
+      <div>
+        <select onChange={(e)=>handleFilterChange( "organization",e.target.value)}  id="">
+          <option >filter by org</option>
+        {organizations.map((item)=>{
+        return(
+          <option value={item._id}>{item.name}</option>
+        )
+      })}
+      </select></div>
+      <div className="search-bar">
+<select name="" id="" onChange={(e)=>setSearchValue(e.target.value)}>
+  <option value="code"> code</option>
+  <option value="name"> name</option>
+  <option value="email"> email</option>
+  <option value="phone"> phone</option>
+</select>
+      <input type="text" onChange={(e)=>handleFilterChange( searchValue,e.target.value)} placeholder='enter the value' />
+      </div>
+      <input
+        type="file"
+        accept=".xlsx"
+        onChange={handleFileUpload}
+      
+      />
+           <button onClick={handleSubmit} style={{ padding: "5px 20px" }}>
+        Submit 
+      </button>
+     
+    </div>
+
+    {selectedIds.length > 0 ?     <div className='selected-btns'>
+      <button onClick={()=>selectManyUsers("skipRaters")}>تخطي المقيمين</button>
+      <button onClick={()=>selectManyUsers("availUsersToRetakeTakeQuiz")}>السماح بالاختبار الثاني </button>
+    </div>: null}
+
     <div className="in-all-users">
       
 
-<table className="users-table" id='table'>
+{usersLoader ? <Loader /> :
+  <table className="users-table" id='table'>
   <thead>
     <tr>
       <th>Name</th>
@@ -545,62 +718,72 @@ console.log(keysArr)
       <th>Actions</th>
     </tr>
   </thead>
+
   <tbody>
-    {users.map((user, index) => (
-      <tr key={index}>
-        <td>{user.name}</td>
-        <td>{user.email}</td>
-        <td>{user.code}</td>
-        <td>{user.phone ? user.phone : "null"}</td>
-        <td> {user.retakeQuizAt ? "finished" : user.quizStatus}</td>
-        <td>{user.retakeQuizAt ? "finished" : "no"}</td>
-        <td>{user.organization ? user.organization.name : "لا يوجد"}</td>
-        <td className='key-found'> 
-          {user.allowed_keys.length === 0 ? (
-            "لا يوجد مفاتيح"
-          ) : (
-            <ul className='in-key-found' >
-              {user.allowed_keys.map((key, keyIndex) => (
-                <li key={keyIndex}>{key.name}</li>
-              ))}
-            </ul>
-          )}
-        </td>
-        <td className='actions'>
-          {user.role === "user" && (
-            <div className="action-cont">
+  {users.length > 0 ?
+  users.map((user, index) => (
+    <tr key={index}>
+      <td className='check-box'>
+         <input type="checkbox"
+              onChange={(e) => handleCheckboxChange(user._id, e.target.checked)} /> 
+              <span>{user.name}</span>
+               </td>
+      <td>{user.email}</td>
+      <td>{user.code}</td>
+      <td>{user.phone ? user.phone : "null"}</td>
+      <td> {user.retakeQuizAt ? "finished" : user.quizStatus}</td>
+      <td>{user.retakeQuizAt ? "finished" : "no"}</td>
+      <td>{user.organization ? user.organization.name : "لا يوجد"}</td>
+      <td className='key-found'> 
+        {user.allowed_keys.length === 0 ? (
+          "لا يوجد مفاتيح"
+        ) : (
+          <ul className='in-key-found' >
+            {user.allowed_keys.map((key, keyIndex) => (
+              <li key={keyIndex}>{key.name}</li>
+            ))}
+          </ul>
+        )}
+      </td>
+      <td className='actions'>
+        {user.role === "user" && (
+          <div className="action-cont">
 
-              <Link to={`/rater/${user._id}`}>المقيمين </Link>
-              <Link to={`/edit/${user._id}`}>تعديل </Link>
-              <button className="delete" onClick={() => deleteButton(user._id)}>
-                حذف
+            <Link to={`/rater/${user._id}`}>المقيمين </Link>
+            <Link to={`/edit/${user._id}`}>تعديل </Link>
+            <button className="delete" onClick={() => deleteButton(user._id)}>
+              حذف
+            </button>
+            {user.quizStatus != "ready"   ?       <button className="again" onClick={() => takeAgain(user._id)}>
+              السماح بالاختبار الثاني    
+                        </button>: null}
+
+             <button onClick={()=>getFullReport(user._id)} className="again" >
+             التقرير الشامل
+
               </button>
-              {user.quizStatus != "ready"   ?       <button className="again" onClick={() => takeAgain(user._id)}>
-                السماح بالاختبار الثاني    
-                          </button>: null}
-
-               <button onClick={()=>getFullReport(user._id)} className="again" >
-               التقرير الشامل
-
-                </button>
-                {user.skipRaters ? null:  <button onClick={()=>skipRater(user._id)} className="again" >
+              {user.skipRaters ? null:  <button onClick={()=>skipRater(user._id)} className="again" >
 تخطي المقيمين
-                </button>}
-              
-                <button onClick={()=>questionsReport(user._id)}>تقرير الاسئلة</button>
-
-
-        
-            </div>
+              </button>}
             
-          )}
-        </td>
-      </tr>
-    ))}
-  </tbody>
-</table>
+              <button onClick={()=>questionsReport(user._id)}>تقرير الاسئلة</button>
+
+
+      
+          </div>
+          
+        )}
+      </td>
+    </tr>
+  ))
+  : "لا يوجد بيانات"}
+</tbody>
+</table>}
 
     </div>
+
+
+    <div className="pagination"> page  <input placeholder={paginationPage} type="text" onChange={(e)=>handleFilterChange("page", e.target.value) } />  of {pagination}</div>
 </div> :null}
 {quesReport ?<div className="all-users">
   <div onClick={()=>setQuesReport(false)} className="close">X</div>
